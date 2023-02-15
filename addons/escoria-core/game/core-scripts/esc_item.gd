@@ -321,7 +321,7 @@ class HoverStackSorter:
 func _on_input_event(_viewport: Object, event: InputEvent, _shape_idx: int):
 	if event is InputEventMouseMotion:
 		var physics2d_dss: Physics2DDirectSpaceState = get_world_2d().direct_space_state
-		var colliding: Array = physics2d_dss.intersect_point(get_global_mouse_position(), 32, [], 0x7FFFFFFF, true, true)		
+		var colliding: Array = physics2d_dss.intersect_point(event.position, 32, [], 0x7FFFFFFF, true, true)		
 		var colliding_nodes = []
 		for c in colliding:
 			if c.collider.get("global_id") \
@@ -375,7 +375,7 @@ func _unhandled_input(input_event: InputEvent) -> void:
 				"Current game state doesn't accept interactions."
 			)
 			return
-		var p = get_global_mouse_position()
+		var p = event.position
 		if _is_in_shape(p) and escoria.action_manager.is_object_actionable(global_id):
 			if event.doubleclick and event.button_index == BUTTON_LEFT:
 				emit_signal("mouse_double_left_clicked_item", self, event)
